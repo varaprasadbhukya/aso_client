@@ -61,6 +61,18 @@
 }
 
 .banner {
-  height: 300px;
-  width: 500px;
+  height: 600px;
+  width: 100%;
+}
+
+.reviews {
+  display: flex;
+  flex-direction: row;
+  margin: 50px;
+  gap: 100px;
+}
+
+.rating {
+  display: flex;
+  flex-direction: column;
 }

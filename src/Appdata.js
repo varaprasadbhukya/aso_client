@@ -7,12 +7,13 @@ import Carousel from 'react-bootstrap/Carousel';
 function Appdata() {
     const navigate = useNavigate();
     const location = useLocation();
-
-    const [rating, setRating] = useState('');
-    const [reviews, setReviews] = useState('');
-    const [banner, setBanner] = useState('');
-    const [histogram, setHistogram] = useState([]);
-    const [screenshots, setScreenshots] = useState([])
+    const [data, setdata] = useState([])
+    // const [rating, setRating] = useState('');
+    // const [reviews, setReviews] = useState('');
+    // const [title, setTitle] = useState('');
+    // const [banner, setBanner] = useState('');
+    // const [histogram, setHistogram] = useState([]);
+    // const [screenshots, setScreenshots] = useState([])
     const appdata = async (appid) => {
         try {
             const response = await axios.post(
@@ -27,11 +28,13 @@ function Appdata() {
                 }
             );
             console.log(response, "-----------------------");
-            setRating(response.data.ratings);
-            setReviews(response.data.reviews);
-            setBanner(response.data.headerImage);
-            setHistogram(response.data.histogram);
-            setScreenshots(response.data.screenshots);
+            setdata(response.data)
+            // setTitle(response.data.title)
+            // setRating(response.data.ratings);
+            // setReviews(response.data.reviews);
+            // setBanner(response.data.headerImage);
+            // setHistogram(response.data.histogram);
+            // setScreenshots(response.data.screenshots);
         } catch (error) {
             console.error('Error:', error);
             alert("An Error occured please retry...")
@@ -45,10 +48,12 @@ function Appdata() {
     }, [])
     return (<>
         <div>Appdata</div><br />
-        {rating && reviews && <div className='appdata'>
-            <img className='banner' src={banner} alt="banner" /><br />
+        <h1>{data.title}</h1>
+        <h5>{data.summary}</h5>
+        {data && <div className='appdata'>
+            <img className='banner' src={data.headerImage} alt="banner" /><br />
             <Carousel data-bs-theme="dark">
-                {screenshots.map((item) => (<Carousel.Item>
+                {data?.screenshots?.map((item) => (<Carousel.Item>
                     <img
                         className="d-block w-600"
                         src={item}
@@ -57,7 +62,7 @@ function Appdata() {
                 </Carousel.Item>))}
             </Carousel>
 
-            <span>Ratings: <h2>{rating}</h2></span> &nbsp; <span>Reviews: <h2>{reviews}</h2></span><br />
+            <span>Ratings: <h2>{data.ratings}</h2></span> &nbsp; <span>Reviews: <h2>{data.reviews}</h2></span><br />
         </div>}
     </>)
 }

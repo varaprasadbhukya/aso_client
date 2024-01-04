@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 function SearchApp() {
+    const [data, setdata] = useState([]);
     const [appname, setAppname] = useState('');
-    const [icon, seticon] = useState('');
+    // const [icon, seticon] = useState('');
     const [appid, setAppid] = useState('');
-    const [rating, setRating] = useState('');
-    const [reviews, setReviews] = useState('');
-
+    const navigate = useNavigate();
     const Search = async () => {
         try {
             const response = await axios.post(
@@ -21,36 +21,16 @@ function SearchApp() {
                     }
                 }
             );
-            console.log(response.data, "-----------------------")
-            setAppid(response.data[0].appId);
-            seticon(response.data[0].icon);
+            setdata(response.data)
+            // setAppid(response.data[0].appId);
+            // seticon(response.data[0].icon);
         } catch (error) {
             console.error('Error:', error);
             alert("An Error occured please retry...")
         }
     }
 
-    const appdata = async () => {
-        try {
-            const response = await axios.post(
-                `http://localhost:4040/appdata`,
-                {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    data: {
-                        app_id: appid
-                    }
-                }
-            );
-            console.log(response, "-----------------------");
-            setRating(response.data.ratings);
-            setReviews(response.data.reviews);
-        } catch (error) {
-            console.error('Error:', error);
-            alert("An Error occured please retry...")
-        }
-    }
+
 
     return (<>
         <input placeholder='search for your app here...' className='text' onChange={(e) => { setAppname(e.target.value) }} />
@@ -59,13 +39,19 @@ function SearchApp() {
             search
         </button>
         <br />
-        {icon && appid && <> <img src={icon} alt='icon' onClick={appdata} />
+        {data && data.map((item) => (<div className='search-list'> <div className='search-inner'><ul> <img className='icon' src={item.icon} alt='icon' onClick={() => navigate("/appdata", { state: { appId: item.appId } })} />
             <br />
-            <span>appId : {appid}</span>
-        </>
+            <span>appId : {item.appId}</span></ul></div>
+        </div>))
         }<br /><br />
-        {rating && reviews && <div>
-            <span>Ratings: <h2>{rating}</h2></span> &nbsp; <span>Reviews: <h2>{reviews}</h2></span>
+        {data.length > 0 && <div>
+            <span>Didn't Found Your App ?</span><br />
+            <span>Try Giving your Package Name !</span> <br />
+            <input placeholder='search for your app here...' className='text' onChange={(e) => { setAppid(e.target.value) }} />
+            <br />
+            <button onClick={() => navigate("/appdata", { state: { appId: appid } })}>
+                search
+            </button>
         </div>}
     </>)
 }

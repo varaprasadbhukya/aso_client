@@ -7,6 +7,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Integrations from './Integrations';
 import Reviews from './Reviews';
 import Ratings from './Ratings';
+import Registration from './components/registration/Registration';
+import OrgForm from './components/registration/OrgForm';
 
 function App() {
   return (
@@ -14,6 +16,8 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={< Home />}></Route>
+          <Route exact path='/signup' element={< Registration />}></Route>
+          <Route exact path='/about-org' element={< OrgForm />}></Route>
           <Route exact path='/search' element={< SearchApp />}></Route>
           <Route exact path='/appdata' element={< Appdata />}></Route>
           <Route exact path='/integrations' element={< Integrations />}></Route>

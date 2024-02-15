@@ -1,5 +1,6 @@
 import React from "react";
 import { useGoogleLogin } from '@react-oauth/google';
+import { jwtDecode } from 'jwt-decode';
 
 function GoogleLoginComp() {
 
@@ -32,7 +33,7 @@ function GoogleLoginComp() {
 
     const login = useGoogleLogin({
         onSuccess: tokenResponse => console.log(tokenResponse)
-      });
+    });
 
     return (
         // <GoogleOAuthProvider clientId="488243178269-05uai4fivv9c0de3l10k8vv03qqvj2i3.apps.googleusercontent.com">
@@ -50,7 +51,7 @@ function GoogleLoginComp() {
         //     onError={handleLoginError}
         // />
 
-        <img className="social-login-icon" src="/google.png" alt="Google" onClick={() => login()}/>
+        <img className="social-login-icon" src="/google.png" alt="Google" onClick={() => login()} />
 
     );
 }

@@ -9,6 +9,7 @@ import Reviews from './Reviews';
 import Ratings from './Ratings';
 import Registration from './components/registration/Registration';
 import OrgForm from './components/registration/OrgForm';
+import MailVerify from './components/registration/MailVerify';
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route exact path='/integrations' element={< Integrations />}></Route>
           <Route exact path='/reviews' element={< Reviews />}></Route>
           <Route exact path='/ratings' element={< Ratings />}></Route>
+          <Route path="/verify/:token" element={<MailVerify />} />
         </Routes>
       </BrowserRouter>
     </div>

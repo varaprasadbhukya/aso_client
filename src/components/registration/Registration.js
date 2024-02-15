@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import Signup from './Signup';
-import SignIn from './SignIn';
+import React, { useState } from "react";
+import Signup from "./Signup";
+import SignIn from "./SignIn";
 
 const Registration = () => {
-  const [activeTab, setActiveTab] = useState('signin');
+  const [activeTab, setActiveTab] = useState("signin");
 
   const handleTabChange = (tab) => {
     setActiveTab(tab);
@@ -13,20 +13,20 @@ const Registration = () => {
     <div className="auth-container">
       <div className="auth-tabs">
         <button
-          className={`auth-tab ${activeTab === 'signup' ? 'active' : ''}`}
-          onClick={() => handleTabChange('signup')}
+          className={`auth-tab ${activeTab === "signup" ? "active" : ""}`}
+          onClick={() => handleTabChange("signup")}
         >
           Sign Up
         </button>
         <button
-          className={`auth-tab ${activeTab === 'signin' ? 'active' : ''}`}
-          onClick={() => handleTabChange('signin')}
+          className={`auth-tab ${activeTab === "signin" ? "active" : ""}`}
+          onClick={() => handleTabChange("signin")}
         >
           Sign In
         </button>
       </div>
-      {activeTab === 'signup' && <Signup />}
-      {activeTab === 'signin' && <SignIn setActiveTab={setActiveTab} />}
+      {activeTab === "signup" && <Signup />}
+      {activeTab === "signin" && <SignIn setActiveTab={setActiveTab} />}
     </div>
   );
 };

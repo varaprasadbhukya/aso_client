@@ -10,6 +10,8 @@ import Ratings from './Ratings';
 import Registration from './components/registration/Registration';
 import OrgForm from './components/registration/OrgForm';
 import MailVerify from './components/registration/MailVerify';
+import RegSuccess from "./components/registration/RegSuccess";
+
 
 function App() {
   return (
@@ -19,6 +21,7 @@ function App() {
           <Route exact path='/' element={< Home />}></Route>
           <Route exact path='/signup' element={< Registration />}></Route>
           <Route exact path='/about-org' element={< OrgForm />}></Route>
+          <Route exact path="/reg_success" element={<RegSuccess />}></Route>
           <Route exact path='/search' element={< SearchApp />}></Route>
           <Route exact path='/appdata' element={< Appdata />}></Route>
           <Route exact path='/integrations' element={< Integrations />}></Route>

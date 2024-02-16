@@ -28,7 +28,7 @@ const OrgForm = () => {
       });
       try {
         let res = await api({
-          url: "/",
+          url: "/auth/register",
           method: "POST",
           responseType: "json",
           data: {
@@ -40,12 +40,16 @@ const OrgForm = () => {
             appId,
           },
         });
-        if (res) {
+        if (res.code === 200) {
           setFullName("");
           setCompanyName("");
           setJobFunction("");
           setCountry("");
           setAppName("");
+          navigate("/reg_success");
+        }
+        if (res.code === 400) {
+          alert('Registration done previously ')
           navigate("/reg_success");
         }
       } catch (error) {

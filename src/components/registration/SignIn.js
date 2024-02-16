@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom';
 import GoogleLoginComp from './GoogleLogin';
+import MicrosoftLog from './MicrosoftLogins';
 import api from '../../services/api';
 
 const SignIn = ({ setActiveTab }) => {
@@ -60,8 +61,10 @@ const SignIn = ({ setActiveTab }) => {
         <GoogleLoginComp />
 
         <img className="social-login-icon" src="/apple.png" alt="Apple" onClick={() => handleSocialSignIn('apple')} />
+        <MicrosoftLog />
 
-        <img className="social-login-icon" src="/microsoft.png" alt="Microsoft" onClick={() => handleSocialSignIn('microsoft')} />
+
+        {/* <img className="social-login-icon" src="/microsoft.png" alt="Microsoft" onClick={() => handleSocialSignIn('microsoft')} /> */}
 
       </div>
     </div>

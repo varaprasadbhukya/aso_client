@@ -1,57 +1,44 @@
 import React from "react";
-import { useGoogleLogin } from '@react-oauth/google';
+import { GoogleLogin } from '@react-oauth/google';
 import { jwtDecode } from 'jwt-decode';
+import { useNavigate } from "react-router-dom";
+import api from '../../services/api';
+
 
 function GoogleLoginComp() {
 
+    const navigate = useNavigate();
+
     const handleLoginSuccess = async (credentialResponse) => {
         // Toast('success', 'Logged in Succesfully')
-        console.log(credentialResponse, "---------------->resp")
-        // var decoded = jwtDecode(credentialResponse.credential);
-        // const userEmail = decoded.email;
-        // localStorage.setItem('userEmail', userEmail);
-        // navigate('/vendorlist')
-        // const backendResponse = await fetch('http://localhost:3001/api/login', {
-        //     method: 'POST',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: { mail: userEmail },
-        // });
-
-        // if (backendResponse.ok) {
-        //     const { token } = await backendResponse.json();
-        //     localStorage.setItem("token", token)
-        //     navigate('/vendorlist')
-        // }
+        var decoded = jwtDecode(credentialResponse.credential);
+        const mail = decoded.email;
+        // localStorage.setItem('userEmail', mail);
+        try {
+            let res = await api({
+                url: '/auth/googlelogin',
+                method: "POST",
+                responseType: "json",
+                data: {
+                    mail
+                },
+            });
+            console.log(res, "------------------>response")
+        } catch (error) {
+            if (error.response.status === 401) navigate("/");
+        }
     };
-
     const handleLoginError = () => {
         // Toast("error", "Login Failed Try Again!!!")
         console.log('Login Failed');
-    };
-
-    const login = useGoogleLogin({
-        onSuccess: tokenResponse => console.log(tokenResponse)
-    });
+    }
 
     return (
-        // <GoogleOAuthProvider clientId="488243178269-05uai4fivv9c0de3l10k8vv03qqvj2i3.apps.googleusercontent.com">
-        //     <GoogleLogin
-        //         clientId="488243178269-05uai4fivv9c0de3l10k8vv03qqvj2i3.apps.googleusercontent.com"
-        //         buttonText="Sign in with Google"
-        //         onSuccess={responseGoogle}
-        //         onFailure={responseGoogle}
-        //         cookiePolicy={"single_host_origin"}
-        //     />
-        // </GoogleOAuthProvider>
-
-        // <GoogleLogin
-        //     onSuccess={handleLoginSuccess}
-        //     onError={handleLoginError}
-        // />
-
-        <img className="social-login-icon" src="/google.png" alt="Google" onClick={() => login()} />
+        // <img className="social-login-icon" src="/google.png" alt="Google" onClick={() => login()} />
+        <GoogleLogin
+            onSuccess={handleLoginSuccess}
+            onError={handleLoginError}
+        />
 
     );
 }

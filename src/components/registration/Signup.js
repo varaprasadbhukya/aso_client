@@ -4,6 +4,7 @@ import Modal from 'react-bootstrap/Modal';
 import { useNavigate } from 'react-router-dom';
 import api from '../../services/api';
 import GoogleLoginComp from './GoogleLogin';
+import MicrosoftLog from './MicrosoftLogins';
 
 const Signup = () => {
   const navigate = useNavigate()
@@ -12,7 +13,7 @@ const Signup = () => {
   const [submit, setSubmit] = useState(false);
   const [modalShow, setModalShow] = useState(false);
 
-  const handleRegistration =async (e) => {
+  const handleRegistration = async (e) => {
     setSubmit(true)
     e.preventDefault();
     if (validatePassword(password)) {
@@ -26,10 +27,10 @@ const Signup = () => {
             email, password
           },
         });
-        if(res){
-            setModalShow(true)
+        if (res) {
+          setModalShow(true)
         }
-        console.log(res,"---------------->respomse")
+        console.log(res, "---------------->respomse")
       } catch (error) {
         if (error.response.status === 401) navigate("/");
       }
@@ -41,7 +42,7 @@ const Signup = () => {
   const handleSocialSignIn = () => {
     console.log("00000000")
   }
-  useEffect(()=>{
+  useEffect(() => {
     console.log("------------------")
   })
 
@@ -69,7 +70,7 @@ const Signup = () => {
 
   return (<>
     <div className="registration-form-container">
-        <h1>Sign Up</h1>
+      <h1>Sign Up</h1>
       <form onSubmit={handleRegistration}>
         <input
           type="email"
@@ -91,17 +92,17 @@ const Signup = () => {
               {<span>contain small alphabet</span>}{lowerCase.test(password) && <span>&nbsp;✓</span>}{submit && !lowerCase.test(password) && <span className='crossMark'>&nbsp;X</span>}
             </div>
             <div className={`password-strength-indicator uppercase ${upperCase.test(password) ? 'valid' : 'invalid'}`}>
-            {<span>contain Capital alphabet</span>}{upperCase.test(password) && <span>&nbsp;✓</span>}{submit && !upperCase.test(password) && <span className='crossMark'>&nbsp;X</span>}
+              {<span>contain Capital alphabet</span>}{upperCase.test(password) && <span>&nbsp;✓</span>}{submit && !upperCase.test(password) && <span className='crossMark'>&nbsp;X</span>}
             </div>
             <div className={`password-strength-indicator digit ${digit.test(password) ? 'valid' : 'invalid'}`}>
-            {<span>contains digits</span>}{digit.test(password) && <span>&nbsp;✓</span>}{submit && !digit.test(password) && <span className='crossMark'>&nbsp;X</span>}
+              {<span>contains digits</span>}{digit.test(password) && <span>&nbsp;✓</span>}{submit && !digit.test(password) && <span className='crossMark'>&nbsp;X</span>}
             </div>
             <div className={`password-strength-indicator special-char ${specialChar.test(password) ? 'valid' : 'invalid'}`}>
-            {<span>contains special characters</span>}{specialChar.test(password) && <span>&nbsp;✓</span>}{submit && !specialChar.test(password) && <span className='crossMark'>&nbsp;X</span>}
+              {<span>contains special characters</span>}{specialChar.test(password) && <span>&nbsp;✓</span>}{submit && !specialChar.test(password) && <span className='crossMark'>&nbsp;X</span>}
             </div>
             <div className={`password-strength-indicator length ${length.test(password) ? 'valid' : 'invalid'}`}>
-            {<span>contain 8 characters</span>}{length.test(password) && <span>&nbsp;✓</span>}{submit && !length.test(password) && <span className='crossMark'>&nbsp;X</span>}
-            </div>  
+              {<span>contain 8 characters</span>}{length.test(password) && <span>&nbsp;✓</span>}{submit && !length.test(password) && <span className='crossMark'>&nbsp;X</span>}
+            </div>
           </div>
         </div>
         <button type="submit">Register</button>
@@ -110,38 +111,39 @@ const Signup = () => {
         Already have an account? <a href="/signup">Sign in</a>
       </p>
       <div className="social-login-icons">
-        <GoogleLoginComp/>     
-        <img className="social-login-icon" src="/apple.png" alt="Apple"  onClick={() => handleSocialSignIn('apple')}/>
-     
-        <img className="social-login-icon" src="/microsoft.png" alt="Microsoft" onClick={() => handleSocialSignIn('microsoft')} />
-      
-    </div>
+        <GoogleLoginComp />
+        <img className="social-login-icon" src="/apple.png" alt="Apple" onClick={() => handleSocialSignIn('apple')} />
+
+        {/* <img className="social-login-icon" src="/microsoft.png" alt="Microsoft" onClick={() => handleSocialSignIn('microsoft')} /> */}
+        <MicrosoftLog />
+
+      </div>
     </div>
     <Modal
-    show={modalShow}
-    onHide={() => {setModalShow(false); navigate("/signup")}}
-    size="sm"
-    aria-labelledby="contained-modal-title-vcenter"
-    centered
-  >
-    <Modal.Header closeButton>
-      <Modal.Title id="contained-modal-title-vcenter">
-        Confirm Your Email!
-      </Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-      <h4>A confirmation mail has been sent your mail id</h4>
-      <p>
-        Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-        dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-        consectetur ac, vestibulum at eros.
-      </p>
-    </Modal.Body>
-    <Modal.Footer>
-  <Button onClick={() => {setModalShow(false); navigate("/signup")}}>Close</Button>
-</Modal.Footer>
-  </Modal>
-</>
+      show={modalShow}
+      onHide={() => { setModalShow(false); navigate("/signup") }}
+      size="sm"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Confirm Your Email!
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <h4>A confirmation mail has been sent your mail id</h4>
+        <p>
+          Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
+          dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
+          consectetur ac, vestibulum at eros.
+        </p>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button onClick={() => { setModalShow(false); navigate("/signup") }}>Close</Button>
+      </Modal.Footer>
+    </Modal>
+  </>
   );
 };
 

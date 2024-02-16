@@ -17,8 +17,11 @@ function MailVerify() {
                     param
                 },
             });
+            console.log(res, "------------------>response")
             if (res.code === 200) {
                 alert("mail verified you can login")
+                localStorage.setItem("token", res.data.data.authorization)
+                navigate('/about-org')
             }
             if (res.code === 400) {
                 alert('Mail Already Verified')

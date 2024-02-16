@@ -1,4 +1,4 @@
-import axios from './axios'
+import Axios from './axios.js'
 // import { useNavigate } from "react-router";
 // const navigate = useNavigate()
 const API = async ({
@@ -28,14 +28,14 @@ const API = async ({
 
   //REQUEST
   try {
-    let request = await axios.request(axiosRequestObject);
+    let request = await Axios.request(axiosRequestObject);
     return request.data;
   } catch (err) {
     if (!err.response) {
       return Promise.reject(err)
     }
     else if (err.response?.status === 401) {
-    //   navigate("/")
+      //   navigate("/")
       return Promise.reject(err)
     }
     else return err.response

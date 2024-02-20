@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const RegSuccess = () => {
   const naviagte = useNavigate();
   const handleLoginClick = () => {
-    naviagte("/signup");
+    naviagte("/signin");
   };
 
   return (

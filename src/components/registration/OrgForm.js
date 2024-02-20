@@ -46,10 +46,10 @@ const OrgForm = () => {
           setJobFunction("");
           setCountry("");
           setAppName("");
-          navigate("/reg_success");
+          navigate("/reviews-feed");
         }
         if (res.code === 400) {
-          alert('Registration done previously ')
+          alert("Registration done previously ");
           navigate("/reg_success");
         }
       } catch (error) {

@@ -49,8 +49,8 @@ const OrgForm = () => {
           navigate("/reviews-feed");
         }
         if (res.code === 400) {
-          alert("Registration done previously ");
-          navigate("/reg_success");
+          alert("Registration done previously");
+          // navigate("/reg_success");
         }
       } catch (error) {
         if (error.response.status === 401) navigate("/");

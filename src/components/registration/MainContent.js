@@ -1,65 +1,66 @@
-
-import React, { useState } from 'react';
-import { loginRequest } from '../../authConfig';
-import { callMsGraph } from '../../graph';
-import MicrosoftSignout from './MicrosoftSignout';
-
+import React, { useEffect } from 'react';
+import { BrowserRouter as Router, useNavigate } from 'react-router-dom'; // Import BrowserRouter and useNavigate
+import api from '../../services/api';
 import { AuthenticatedTemplate, UnauthenticatedTemplate, useMsal } from '@azure/msal-react';
 
-
-
 const ProfileContent = () => {
+  const navigate = useNavigate();
   const { instance, accounts } = useMsal();
-  const [graphData, setGraphData] = useState(null);
 
-  function RequestProfileData() {
-    // Silently acquires an access token which is then attached to a request for MS Graph data
-    instance
-      .acquireTokenSilent({
-        ...loginRequest,
-        account: accounts[0],
-      })
-      .then((response) => {
-        callMsGraph(response.accessToken).then((response) => setGraphData(response));
+  const handleReg = async (email) => {
+    try {
+      let res = await api({
+        url: "/auth/signup",
+        method: "POST",
+        responseType: "json",
+        data: {
+          email,
+          password: "microsoft",
+        },
       });
+      if (res.code === 200) {
+        localStorage.setItem("token", res.data.data.authorization);
+        navigate("/about-org");
+      }
+      if (res.code === 400) {
+        alert("Mail Registered please signin");
+        navigate("/signin");
+      }
+      console.log(res, "---------------->response");
+    } catch (error) {
+      if (error?.response?.status === 401) navigate("/");
+    }
   }
+
+  useEffect(() => {
+    console.log(accounts[0], "------------------------------------------>Accounts Information")
+    if (accounts[0]?.username !== null) {
+      handleReg(accounts[0]?.username)
+    }
+  }, [accounts])
 
   return (
     <>
-      {console.log(accounts[0], "------------------------------------------>Accounts Information")}
       <h5 className="card-title">Welcome {accounts[0]?.name}</h5>
       <br />
-      {/* {graphData ? (
-        <ProfileContent graphData={graphData} />
-      ) : (
-        <button variant="secondary" onClick={RequestProfileData}>
-          Request Profile Information
-        </button>
-      )} */}
     </>
   );
 };
 
 const MainContent = () => {
   return (
-    <div className="App">
-      <AuthenticatedTemplate>
-        <ProfileContent />
-        {/* <MicrosoftSignout /> */}
+    <Router> {/* Wrap your component with Router */}
+      <div className="App">
+        <AuthenticatedTemplate>
+          <ProfileContent />
+        </AuthenticatedTemplate>
 
-      </AuthenticatedTemplate>
-
-      <UnauthenticatedTemplate>
-        {/* <h5>
-            <center>
-              Please sign-in to see your profile information.
-            </center>
-          </h5>
-          <MicrosoftLogins /> */}
-
-      </UnauthenticatedTemplate>
-    </div>
+        <UnauthenticatedTemplate>
+          {/* Your unauthenticated content */}
+        </UnauthenticatedTemplate>
+      </div>
+    </Router>
   );
 };
 
-export default MainContent
+export default MainContent;

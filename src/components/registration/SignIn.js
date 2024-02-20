@@ -24,7 +24,28 @@ const SignIn = ({ setActiveTab }) => {
           email, password
         },
       });
-      console.log(res, "---------------->respomse")
+      console.log(res, "------------------------>response")
+      if (res.code === 200) {
+        localStorage.setItem("token", res.data.data.authorization)
+        alert('Login Success')
+        if (res.data.data.reg_done === "true") {
+          navigate('/dashboard')
+        }
+        else {
+          navigate('/about-org')
+        }
+      }
+      if (res.code === 400) {
+        const errorMessage = res.message;
+        // Find index of "Error :" in the message
+        const errorIndex = errorMessage.indexOf('Error:');
+        if (errorIndex !== -1) {
+          // Extract message after "Error :"
+          const actualMessage = errorMessage.slice(errorIndex + 7).trim();
+          // Display error message in alert
+          alert(actualMessage);
+        }
+      }
     } catch (error) {
       if (error.response.status === 401) navigate("/");
     }
@@ -59,8 +80,6 @@ const SignIn = ({ setActiveTab }) => {
       <div className="social-login-icons">
 
         <GoogleLoginComp />
-
-        <img className="social-login-icon" src="/apple.png" alt="Apple" onClick={() => handleSocialSignIn('apple')} />
         <MicrosoftLog />
 
 

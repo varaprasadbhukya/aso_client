@@ -112,8 +112,6 @@ const Signup = () => {
       </p>
       <div className="social-login-icons">
         <GoogleLoginComp />
-        <img className="social-login-icon" src="/apple.png" alt="Apple" onClick={() => handleSocialSignIn('apple')} />
-
         {/* <img className="social-login-icon" src="/microsoft.png" alt="Microsoft" onClick={() => handleSocialSignIn('microsoft')} /> */}
         <MicrosoftLog />
 

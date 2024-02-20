@@ -1,4 +1,5 @@
 import './App.css';
+import React, { useState } from 'react';
 import Appdata from './Appdata';
 import Home from './Home';
 import SearchApp from './SearchApp';
@@ -11,11 +12,16 @@ import Registration from './components/registration/Registration';
 import OrgForm from './components/registration/OrgForm';
 import MailVerify from './components/registration/MailVerify';
 import RegSuccess from "./components/registration/RegSuccess";
+import HomeDashboard from './components/dashboard/HomeDashboard';
+import MainContent from './components/registration/MainContent';
 
 
 function App() {
+
+
   return (
     <div className="App">
+      <MainContent />
       <BrowserRouter>
         <Routes>
           <Route exact path='/' element={< Home />}></Route>
@@ -27,6 +33,7 @@ function App() {
           <Route exact path='/integrations' element={< Integrations />}></Route>
           <Route exact path='/reviews' element={< Reviews />}></Route>
           <Route exact path='/ratings' element={< Ratings />}></Route>
+          <Route exact path='/dashboard' element={< HomeDashboard />}></Route>
           <Route path="/verify/:token" element={<MailVerify />} />
         </Routes>
       </BrowserRouter>

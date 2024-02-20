@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 const RegSuccess = () => {
   const naviagte = useNavigate();
   const handleLoginClick = () => {
-    naviagte("/signup");
+    naviagte("/dashboard");
   };
 
   return (
@@ -14,7 +14,7 @@ const RegSuccess = () => {
         Please press the button below to proceed to login.
       </p>
       <button className="button" onClick={handleLoginClick}>
-        Login
+        Procced to Dashboard
       </button>
     </div>
   );

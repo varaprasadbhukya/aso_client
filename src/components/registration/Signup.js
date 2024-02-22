@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+import React, { useState } from "react";
+// import Button from "react-bootstrap/Button";
+// import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import api from "../../services/api";
 import GoogleLoginComp from "./GoogleLogin";
@@ -45,9 +45,9 @@ const Signup = () => {
     }
   };
 
-  const handleSocialSignIn = () => {
-    console.log("00000000");
-  };
+  // const handleSocialSignIn = () => {
+  //   console.log("00000000");
+  // };
 
   const validatePassword = (password) => {
     const lowerCase = new RegExp("(?=.*[a-z])");
@@ -93,8 +93,9 @@ const Signup = () => {
             />
             <div className="password-strength-indicator-container">
               <div
-                className={`password-strength-indicator lowercase ${lowerCase.test(password) ? "valid" : "invalid"
-                  }`}
+                className={`password-strength-indicator lowercase ${
+                  lowerCase.test(password) ? "valid" : "invalid"
+                }`}
               >
                 {<span>contain small alphabet</span>}
                 {lowerCase.test(password) && <span>&nbsp;✓</span>}
@@ -103,8 +104,9 @@ const Signup = () => {
                 )}
               </div>
               <div
-                className={`password-strength-indicator uppercase ${upperCase.test(password) ? "valid" : "invalid"
-                  }`}
+                className={`password-strength-indicator uppercase ${
+                  upperCase.test(password) ? "valid" : "invalid"
+                }`}
               >
                 {<span>contain Capital alphabet</span>}
                 {upperCase.test(password) && <span>&nbsp;✓</span>}
@@ -113,8 +115,9 @@ const Signup = () => {
                 )}
               </div>
               <div
-                className={`password-strength-indicator digit ${digit.test(password) ? "valid" : "invalid"
-                  }`}
+                className={`password-strength-indicator digit ${
+                  digit.test(password) ? "valid" : "invalid"
+                }`}
               >
                 {<span>contains digits</span>}
                 {digit.test(password) && <span>&nbsp;✓</span>}
@@ -123,8 +126,9 @@ const Signup = () => {
                 )}
               </div>
               <div
-                className={`password-strength-indicator special-char ${specialChar.test(password) ? "valid" : "invalid"
-                  }`}
+                className={`password-strength-indicator special-char ${
+                  specialChar.test(password) ? "valid" : "invalid"
+                }`}
               >
                 {<span>contains special characters</span>}
                 {specialChar.test(password) && <span>&nbsp;✓</span>}
@@ -133,8 +137,9 @@ const Signup = () => {
                 )}
               </div>
               <div
-                className={`password-strength-indicator length ${length.test(password) ? "valid" : "invalid"
-                  }`}
+                className={`password-strength-indicator length ${
+                  length.test(password) ? "valid" : "invalid"
+                }`}
               >
                 {<span>contain 8 characters</span>}
                 {length.test(password) && <span>&nbsp;✓</span>}

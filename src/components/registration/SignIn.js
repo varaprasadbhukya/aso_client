@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Button from "react-bootstrap/Button";
-import Modal from "react-bootstrap/Modal";
+// import Button from "react-bootstrap/Button";
+// import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import GoogleLoginComp from "./GoogleLogin";
 import MicrosoftLog from "./MicrosoftLogins";
@@ -48,9 +48,10 @@ const SignIn = ({ setActiveTab }) => {
       if (error?.response?.status === 401) navigate("/");
     }
   };
-  const handleSocialSignIn = () => {
-    console.log("sucess");
-  };
+
+  // const handleSocialSignIn = () => {
+  //   console.log("sucess");
+  // };
 
   return (
     <>

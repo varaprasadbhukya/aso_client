@@ -4,7 +4,7 @@ import Appdata from "./Appdata";
 import SearchApp from "./SearchApp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Integrations from "./Integrations";
+import Integrations from "./components/monitor/Integrations";
 import Reviews from "./Reviews";
 import Ratings from "./Ratings";
 import Registration from "./components/registration/Registration";
@@ -21,10 +21,11 @@ function App() {
     <div className="App">
       <MainContent />
       <BrowserRouter>
+        <Sidebar />
         <Routes>
           {/* <Route exact path="/" element={<Registration />}></Route> */}
           <Route exact path="/signin" element={<Registration />}></Route>
-          <Route exact path="/main" element={<Sidebar />}></Route>
+          <Route exact path="/dashboard" element={<HomeDashboard />}></Route>
           <Route exact path="/reviews-feed" element={<ReviewsFeed />}></Route>
           <Route exact path="/about-org" element={<OrgForm />}></Route>
           <Route exact path="/reg_success" element={<RegSuccess />}></Route>

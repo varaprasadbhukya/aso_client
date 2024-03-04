@@ -2,7 +2,9 @@ import React from 'react'
 
 function HomeDashboard() {
     return (
-        <h1>Dashboard</h1>
+        <div className='main'>
+            <h1>Dashboard</h1>
+        </div>
     )
 }
 

@@ -126,7 +126,7 @@ const OrgForm = () => {
               <option value="CA">Canada</option>
               {/* Add more country options here */}
             </select>
-            {console.log(appName, "----------appname")}
+            {/* {console.log(appName, "----------appname")} */}
             <label htmlFor="appName">Search for your app:</label>
 
             <input

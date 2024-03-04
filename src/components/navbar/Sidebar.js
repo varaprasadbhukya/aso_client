@@ -42,22 +42,22 @@ const SidebarWrap = styled.div`
 `;
 
 const Sidebar = () => {
-    const [sidebar, setSidebar] = useState(false);
+    // const [sidebar, setSidebar] = useState(true);
 
-    const showSidebar = () => setSidebar(!sidebar);
+    // const showSidebar = () => setSidebar(!sidebar);
 
     return (
         <>
             <IconContext.Provider value={{ color: '#fff' }}>
-                <Nav>
+                {/* <Nav>
                     <NavIcon to='#'>
-                        <FaIcons.FaBars onClick={showSidebar} />
+                        <h1>ASO Pilot</h1>
                     </NavIcon>
-                </Nav>
-                <SidebarNav sidebar={sidebar}>
+                </Nav> */}
+                <SidebarNav sidebar={true}>
                     <SidebarWrap>
                         <NavIcon to='#'>
-                            <AiIcons.AiOutlineClose onClick={showSidebar} />
+                            <h1>ASO Pilot</h1>
                         </NavIcon>
                         {SidebarData.map((item, index) => {
                             return <SubMenu item={item} key={index} />;

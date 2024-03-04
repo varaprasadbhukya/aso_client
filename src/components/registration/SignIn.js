@@ -33,7 +33,7 @@ const SignIn = ({ setActiveTab }) => {
           if (res.data.registered !== true) {
             navigate("/about-org");
           } else {
-            navigate("/main");
+            navigate("/reviews-feed");
           }
         }
       } else {

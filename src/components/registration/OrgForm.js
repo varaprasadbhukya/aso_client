@@ -68,6 +68,7 @@ const OrgForm = () => {
           responseType: "json",
           data: {
             appname,
+            country: country,
           },
         });
         if (res?.code === 200) {
@@ -123,8 +124,9 @@ const OrgForm = () => {
               required
             >
               <option value="">Select your country</option>
+              <option value="IN">India</option>
               <option value="US">United States</option>
-              <option value="CA">Canada</option>
+              <option value="CN">Canada</option>
               {/* Add more country options here */}
             </select>
             {/* {console.log(appName, "----------appname")} */}

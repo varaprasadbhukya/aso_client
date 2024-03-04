@@ -5,7 +5,6 @@ import ReactStars from "react-rating-stars-component";
 import ResponsiveHistogram from "../../shared/ResponsiveHistogram";
 import Header from "../../shared/Header";
 
-
 function ReviewsFeed() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,11 +13,13 @@ function ReviewsFeed() {
   const [reply, setReply] = useState();
   const [reviewID, setReviewID] = useState("");
   const [hist, setHist] = useState([]);
-  const [load, setLoad] = useState(false)
+  const [load, setLoad] = useState(false);
+  const [repl1, setReply1] = useState();
+  const [replyLoad, setReplyLoad] = useState(false);
 
   const Appdata = async () => {
     try {
-      setLoad(true)
+      setLoad(true);
       let res = await api({
         url: "/appdata",
         method: "POST",
@@ -30,7 +31,7 @@ function ReviewsFeed() {
           setdata(res.data.appData);
           setReviews(res.data.reviews.data);
           setHist(res.data.appData.histogram);
-          setLoad(false)
+          setLoad(false);
         }
       } else {
         if (res?.data?.code === 400) {
@@ -63,6 +64,7 @@ function ReviewsFeed() {
 
   const generateReply = async (item) => {
     setReply("");
+    setReplyLoad(true);
     try {
       let res = await api({
         url: "/appdata/reply",
@@ -76,7 +78,8 @@ function ReviewsFeed() {
       if (res.status === "SUCCESS") {
         if (res.code === 200) {
           setReviewID(item.id);
-          setReply(res.data.data);
+          setReply(res.data);
+          setReplyLoad(false);
         }
       } else {
         if (res?.code === 400) {
@@ -87,7 +90,6 @@ function ReviewsFeed() {
       if (error?.response?.status === 401) navigate("/");
     }
   };
-
 
   const [appName, setAppName] = useState("");
   const [data1, setData1] = useState("");
@@ -112,21 +114,37 @@ function ReviewsFeed() {
       }
     }
     if (appname.length < 4) {
-      setData1('')
+      setData1("");
     }
   };
+  const [typingIndex, setTypingIndex] = useState(0);
+  const startTypingAnimation = () => {
+    const typingInterval = setInterval(() => {
+      setTypingIndex((prevIndex) => prevIndex + 1);
+    }, 90);
+    setTimeout(() => {
+      clearInterval(typingInterval);
+    }, reply.length * 100);
+    setTypingIndex(0);
+  };
 
+  useEffect(() => {
+    if (reply) {
+      startTypingAnimation();
+    }
+  }, [reply]);
 
-  return (<>
-    <Header />
-    {
-      load ? <div class="d-flex justify-content-center mt-5">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+  return (
+    <>
+      <Header />
+      {load ? (
+        <div class="d-flex justify-content-center mt-5">
+          <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+          </div>
         </div>
-      </div> :
+      ) : (
         <div className="main">
-
           <div className="m-4 col-3">
             {/* <label htmlFor="appName">Search for your app:</label> */}
             <input
@@ -153,7 +171,6 @@ function ReviewsFeed() {
                   />
                 </div>
               ))}
-
           </div>
           <hr />
           <div className="d-flex">
@@ -209,9 +226,7 @@ function ReviewsFeed() {
             <div className="hist">
               <ResponsiveHistogram histogramData={hist} />
             </div>
-            <div>
-
-            </div>
+            <div></div>
             <div class="vl"></div>
           </div>
           <hr />
@@ -240,19 +255,37 @@ function ReviewsFeed() {
                     onClick={() => {
                       generateReply(item);
                     }}
+                    disabled={replyLoad}
                   >
                     Generate AI reply
                   </button>
                   <br />
-                  <textarea
-                    placeholder="Enter reply text"
-                    cols={70}
-                    rows={4}
-                    value={item?.id === reviewID ? reply : ""}
-                    onChange={(e) => setReply(e.target.value)}
-                  ></textarea>
+                  {!repl1 ? (
+                    <textarea
+                      placeholder="Enter reply text"
+                      cols={70}
+                      rows={4}
+                      value={
+                        item?.id === reviewID ? reply.slice(0, typingIndex) : ""
+                      }
+                      onChange={(e) => setReply1(e.target.value)}
+                    ></textarea>
+                  ) : (
+                    <textarea
+                      placeholder="Enter reply text"
+                      cols={70}
+                      rows={4}
+                      value={item?.id === reviewID ? repl1 : ""}
+                      onChange={(e) => {
+                        setReply1(e.target.value);
+                        setReply("");
+                      }}
+                    ></textarea>
+                  )}
                   <br />
-                  <button className="btn btn-success w-25 mb-5">Send Reply</button>
+                  <button className="btn btn-success w-25 mb-5">
+                    Send Reply
+                  </button>
                 </div>
               );
             })}
@@ -301,7 +334,9 @@ function ReviewsFeed() {
           <br />
         </div>
       )} */}
-        </div>}</>
+        </div>
+      )}
+    </>
   );
 }
 

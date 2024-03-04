@@ -1,7 +1,6 @@
 import "./App.css";
 import React, { useState } from "react";
 import Appdata from "./Appdata";
-import Home from "./Home";
 import SearchApp from "./SearchApp";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,7 +13,8 @@ import MailVerify from "./components/registration/MailVerify";
 import RegSuccess from "./components/registration/RegSuccess";
 import HomeDashboard from "./components/dashboard/HomeDashboard";
 import MainContent from "./components/registration/MainContent";
-import ReviewsFeed from "./components/dashboard/ReviewsFeed";
+import ReviewsFeed from "./components/monitor/ReviewsFeed";
+import Sidebar from "./components/navbar/Sidebar"
 
 function App() {
   return (
@@ -24,6 +24,7 @@ function App() {
         <Routes>
           {/* <Route exact path="/" element={<Registration />}></Route> */}
           <Route exact path="/signin" element={<Registration />}></Route>
+          <Route exact path="/main" element={<Sidebar />}></Route>
           <Route exact path="/reviews-feed" element={<ReviewsFeed />}></Route>
           <Route exact path="/about-org" element={<OrgForm />}></Route>
           <Route exact path="/reg_success" element={<RegSuccess />}></Route>

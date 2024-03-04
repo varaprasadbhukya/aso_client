@@ -18,15 +18,15 @@ function ReviewsFeed() {
         method: "POST",
         responseType: "json",
       });
-      if (res.status === "SUCCESS") {
-        if (res.code === 200) {
+      if (res?.status === "SUCCESS") {
+        if (res?.code === 200) {
           // console.log(res);
-          setdata(res.data.data.appData);
-          setReviews(res.data.data.reviews.data);
+          setdata(res.data.appData);
+          setReviews(res.data.reviews.data);
         }
       } else {
-        if (res?.code === 400) {
-          alert(res?.message);
+        if (res?.data?.code === 400) {
+          alert(res?.data?.message);
         }
       }
     } catch (error) {

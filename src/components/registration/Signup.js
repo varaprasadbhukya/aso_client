@@ -29,14 +29,13 @@ const Signup = () => {
           },
         });
         if (res.code === 200) {
-          localStorage.setItem("token", res.data.data.authorization);
+          localStorage.setItem("token", res.data.authorization);
           navigate("/about-org");
         }
-        if (res.code === 400) {
-          alert("Mail Registered please signin");
+        if (res?.data?.code === 400) {
+          alert(res?.data?.message);
           navigate("/signin");
         }
-        console.log(res, "---------------->response");
       } catch (error) {
         if (error.response.status === 401) navigate("/");
       }
@@ -93,9 +92,8 @@ const Signup = () => {
             />
             <div className="password-strength-indicator-container">
               <div
-                className={`password-strength-indicator lowercase ${
-                  lowerCase.test(password) ? "valid" : "invalid"
-                }`}
+                className={`password-strength-indicator lowercase ${lowerCase.test(password) ? "valid" : "invalid"
+                  }`}
               >
                 {<span>contain small alphabet</span>}
                 {lowerCase.test(password) && <span>&nbsp;✓</span>}
@@ -104,9 +102,8 @@ const Signup = () => {
                 )}
               </div>
               <div
-                className={`password-strength-indicator uppercase ${
-                  upperCase.test(password) ? "valid" : "invalid"
-                }`}
+                className={`password-strength-indicator uppercase ${upperCase.test(password) ? "valid" : "invalid"
+                  }`}
               >
                 {<span>contain Capital alphabet</span>}
                 {upperCase.test(password) && <span>&nbsp;✓</span>}
@@ -115,9 +112,8 @@ const Signup = () => {
                 )}
               </div>
               <div
-                className={`password-strength-indicator digit ${
-                  digit.test(password) ? "valid" : "invalid"
-                }`}
+                className={`password-strength-indicator digit ${digit.test(password) ? "valid" : "invalid"
+                  }`}
               >
                 {<span>contains digits</span>}
                 {digit.test(password) && <span>&nbsp;✓</span>}
@@ -126,9 +122,8 @@ const Signup = () => {
                 )}
               </div>
               <div
-                className={`password-strength-indicator special-char ${
-                  specialChar.test(password) ? "valid" : "invalid"
-                }`}
+                className={`password-strength-indicator special-char ${specialChar.test(password) ? "valid" : "invalid"
+                  }`}
               >
                 {<span>contains special characters</span>}
                 {specialChar.test(password) && <span>&nbsp;✓</span>}
@@ -137,9 +132,8 @@ const Signup = () => {
                 )}
               </div>
               <div
-                className={`password-strength-indicator length ${
-                  length.test(password) ? "valid" : "invalid"
-                }`}
+                className={`password-strength-indicator length ${length.test(password) ? "valid" : "invalid"
+                  }`}
               >
                 {<span>contain 8 characters</span>}
                 {length.test(password) && <span>&nbsp;✓</span>}

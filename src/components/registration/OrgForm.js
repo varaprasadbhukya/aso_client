@@ -40,7 +40,7 @@ const OrgForm = () => {
             appId,
           },
         });
-        if (res.code === 200) {
+        if (res?.code === 200) {
           setFullName("");
           setCompanyName("");
           setJobFunction("");
@@ -48,7 +48,7 @@ const OrgForm = () => {
           setAppName("");
           navigate("/reviews-feed");
         }
-        if (res.code === 400) {
+        if (res?.data?.code === 400) {
           alert("Registration done previously");
           // navigate("/reg_success");
         }
@@ -69,8 +69,8 @@ const OrgForm = () => {
             appname,
           },
         });
-        if (res) {
-          setData(res.data.data);
+        if (res?.code === 200) {
+          setData(res.data);
         }
       } catch (error) {
         if (error.response.status === 401) navigate("/");

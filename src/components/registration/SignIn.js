@@ -25,22 +25,24 @@ const SignIn = ({ setActiveTab }) => {
           password,
         },
       });
-      if (res.status === "SUCCESS") {
-        localStorage.setItem("token", res.data.data.authorization);
-        if (res.code === 200) {
-          if (res.data.data.registered !== true) {
+
+      console.log(res, "--------------------->signinres")
+      if (res?.status === "SUCCESS") {
+        localStorage.setItem("token", res.data.authorization);
+        if (res?.code === 200) {
+          if (res.data.registered !== true) {
             navigate("/about-org");
           } else {
-            navigate("/reviews-feed");
+            navigate("/main");
           }
         }
       } else {
-        if (res?.code === 400) {
-          if (res.message === "Error: Mail Not exist") {
-            alert(res?.message);
+        if (res?.data?.code === 400) {
+          if (res?.data?.message === "Error: Mail Not exist") {
+            alert(res?.data?.message);
             setActiveTab("signup");
           } else {
-            alert(res?.message);
+            alert(res?.data?.message);
           }
         }
       }

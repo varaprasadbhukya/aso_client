@@ -48,7 +48,7 @@ const Sidebar = () => {
 
     return (
         <>
-            <IconContext.Provider value={{ color: '#fff' }}>
+            {localStorage.getItem("token") && <IconContext.Provider value={{ color: '#fff' }}>
                 {/* <Nav>
                     <NavIcon to='#'>
                         <h1>ASO Pilot</h1>
@@ -64,7 +64,7 @@ const Sidebar = () => {
                         })}
                     </SidebarWrap>
                 </SidebarNav>
-            </IconContext.Provider>
+            </IconContext.Provider>}
         </>
     );
 };

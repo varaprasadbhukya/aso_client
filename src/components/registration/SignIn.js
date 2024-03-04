@@ -29,6 +29,8 @@ const SignIn = ({ setActiveTab }) => {
       console.log(res, "--------------------->signinres")
       if (res?.status === "SUCCESS") {
         localStorage.setItem("token", res.data.authorization);
+        localStorage.setItem("name", res.data.name);
+
         if (res?.code === 200) {
           if (res.data.registered !== true) {
             navigate("/about-org");

@@ -41,6 +41,7 @@ const OrgForm = () => {
           },
         });
         if (res?.code === 200) {
+          localStorage.setItem("name", fullName)
           setFullName("");
           setCompanyName("");
           setJobFunction("");

@@ -19,10 +19,10 @@ const ProfileContent = () => {
         },
       });
       if (res.code === 200) {
-        localStorage.setItem("token", res.data.data.authorization);
+        localStorage.setItem("token", res.data.authorization);
         navigate("/about-org");
       }
-      if (res.code === 400) {
+      if (res?.data?.code === 400) {
         alert("Mail Registered please signin");
         navigate("/signin");
       }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import Button from "react-bootstrap/Button";
 // import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
@@ -54,6 +54,13 @@ const SignIn = ({ setActiveTab }) => {
   // const handleSocialSignIn = () => {
   //   console.log("sucess");
   // };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/reviews-feed")
+    }
+  })
+
 
   return (
     <>

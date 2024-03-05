@@ -10,8 +10,8 @@ function Header() {
     const { instance } = useMsal();
 
     const generateProfileName = (name) => {
-        const parts = name.split(' ');
-        return parts.map(part => part.charAt(0).toUpperCase()).join('');
+        const parts = name?.split(' ');
+        return parts?.map(part => part.charAt(0).toUpperCase()).join('');
     }
 
     // Generate profile abbreviation
@@ -36,14 +36,14 @@ function Header() {
     }
 
     return (<>
-        <div className="d-flex justify-content-end m-2 dropdown"> <div className="circular-profile">
+        <div className="d-flex justify-content-end m-2 "> <div className="circular-profile">
             {profileName}
-        </div> <h5 className='m-3 dropbtn'>{localStorage.getItem("name")}</h5>
-            <div class="dropdown-content">
-                <a >Profile</a>
-                <a >User Management</a>
-                <a onClick={() => { LogOut() }}>Log Out</a>
-            </div></div>
+        </div> <span className='dropdown'><h5 className='m-3 dropbtn'>{localStorage.getItem("name")}</h5>
+                <div class="dropdown-content">
+                    <a >Profile</a>
+                    <a >User Management</a>
+                    <a onClick={() => { LogOut() }}>Log Out</a>
+                </div></span></div>
     </>)
 }
 

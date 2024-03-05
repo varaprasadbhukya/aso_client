@@ -5,6 +5,8 @@ import ReactStars from "react-rating-stars-component";
 import ResponsiveHistogram from "../../shared/ResponsiveHistogram";
 import Header from "../../shared/Header";
 
+
+
 function ReviewsFeed() {
   const navigate = useNavigate();
   const location = useLocation();
@@ -14,7 +16,7 @@ function ReviewsFeed() {
   const [reviewID, setReviewID] = useState("");
   const [hist, setHist] = useState([]);
   const [load, setLoad] = useState(false);
-  const [repl1, setReply1] = useState();
+  // const [repl1, setReply1] = useState();
   const [replyLoad, setReplyLoad] = useState(false);
 
   const Appdata = async () => {
@@ -117,22 +119,24 @@ function ReviewsFeed() {
       setData1("");
     }
   };
-  const [typingIndex, setTypingIndex] = useState(0);
-  const startTypingAnimation = () => {
-    const typingInterval = setInterval(() => {
-      setTypingIndex((prevIndex) => prevIndex + 1);
-    }, 90);
-    setTimeout(() => {
-      clearInterval(typingInterval);
-    }, reply.length * 100);
-    setTypingIndex(0);
-  };
+  // const [typingIndex, setTypingIndex] = useState(0);
+  // const startTypingAnimation = () => {
+  //   const typingInterval = setInterval(() => {
+  //     setTypingIndex((prevIndex) => prevIndex + 1);
+  //   }, 90);
+  //   setTimeout(() => {
+  //     clearInterval(typingInterval);
+  //   }, reply.length * 100);
+  //   setTypingIndex(0);
+  // };
 
-  useEffect(() => {
-    if (reply) {
-      startTypingAnimation();
-    }
-  }, [reply]);
+  // useEffect(() => {
+  //   if (reply) {
+  //     startTypingAnimation();
+  //   }
+  // }, [reply]);
+
+
 
   return (
     <>
@@ -254,13 +258,14 @@ function ReviewsFeed() {
                     className="btn btn-primary w-25"
                     onClick={() => {
                       generateReply(item);
+                      setReviewID(item.id)
                     }}
                     disabled={replyLoad}
                   >
                     Generate AI reply
                   </button>
                   <br />
-                  {!repl1 ? (
+                  {/* {!repl1 ? (
                     <textarea
                       placeholder="Enter reply text"
                       cols={70}
@@ -270,18 +275,18 @@ function ReviewsFeed() {
                       }
                       onChange={(e) => setReply1(e.target.value)}
                     ></textarea>
-                  ) : (
-                    <textarea
-                      placeholder="Enter reply text"
-                      cols={70}
-                      rows={4}
-                      value={item?.id === reviewID ? repl1 : ""}
-                      onChange={(e) => {
-                        setReply1(e.target.value);
-                        setReply("");
-                      }}
-                    ></textarea>
-                  )}
+                  ) : ( */}
+                  <textarea
+                    placeholder="Enter reply text"
+                    cols={70}
+                    rows={4}
+                    value={item?.id === reviewID && replyLoad ? "loading..." : item?.id === reviewID ? reply : ""}
+                    onChange={(e) => {
+                      setReply(e.target.value);
+                      setReviewID(item.id)
+                    }}
+                  ></textarea>
+                  {/* )} */}
                   <br />
                   <button className="btn btn-success w-25 mb-5">
                     Send Reply
